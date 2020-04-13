@@ -115,7 +115,40 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        #Create a Queue and put in the starting vertex
+        queue = Queue()
+        queue.enqueue([starting_vertex])
+        
+        # Create a set of traversed vertices
+        visited = set()
+
+        #While there are items in the queue
+        while queue.size() > 0:
+            
+            #set the path as the current queue item, and remove from queue
+            path = queue.dequeue()
+            #Set the current node from  the end of the path
+            current_node = path[-1]
+            print("current node: ", current_node)
+            print("path: ", path)
+            #If the current node is not in visited
+            if current_node not in visited:
+                #Visit it 
+                visited.add(current_node)
+                print("visited: ", visited)
+                #If the the current node is the destination return the path
+                if current_node == destination_vertex:
+                    return path
+                #For each neighbor of the current node
+                for neighbor in self.get_neighbors(current_node):
+                    #Queue the path and the neighbor
+                    queue.enqueue([*path, neighbor])
+
+# queue: [1,2,3,5], [1,2, 4]
+# path: [1, 2, 3]
+# current node: 3
+# visited: 1, 2, 3
+
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -177,7 +210,7 @@ if __name__ == '__main__':
         1, 2, 4, 3, 7, 6, 5
         1, 2, 4, 3, 7, 5, 6
     '''
-    graph.bft(1)
+    # graph.bft(1)
 
     '''
     Valid DFT paths:
@@ -186,14 +219,14 @@ if __name__ == '__main__':
         1, 2, 4, 7, 6, 3, 5
         1, 2, 4, 6, 3, 5, 7
     '''
-    graph.dft(1)
-    graph.dft_recursive(1)
+    # graph.dft(1)
+    # graph.dft_recursive(1)
 
     '''
     Valid BFS path:
         [1, 2, 4, 6]
     '''
-    print(graph.bfs(1, 6))
+    print(graph.bfs(1, 5))
 
     '''
     Valid DFS paths:
